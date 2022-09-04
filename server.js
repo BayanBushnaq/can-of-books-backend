@@ -48,6 +48,8 @@ const Book = mongoose.model('Book','Bookschema');
   Book3.save();
 }
 
+
+//Just Once
 seedData();
 
 app.get('/', homeRouteHandler)
