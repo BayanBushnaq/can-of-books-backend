@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 let mongoose = require('mongoose');
 
-let storeDB = require('./DataBase')
+
 
 
 
@@ -14,7 +14,7 @@ app.use(cors());
 
 
 
-const PORT = process.env.PORT || 3999;
+const PORT = process.env.PORT || 3010;
 
 mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
 
