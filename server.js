@@ -1,85 +1,91 @@
-'use strict';
+"use strict";
 
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-let mongoose = require('mongoose');
-
-
-
-
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+let mongoose = require("mongoose");
 
 const app = express();
 app.use(cors());
-
-
+app.use(express.json());
 
 const PORT = process.env.PORT || 3010;
 
-mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(
+  "mongodb://BayanBushnaq:1234@ac-9ykgkyg-shard-00-00.9vebrc0.mongodb.net:27017,ac-9ykgkyg-shard-00-01.9vebrc0.mongodb.net:27017,ac-9ykgkyg-shard-00-02.9vebrc0.mongodb.net:27017/?ssl=true&replicaSet=atlas-14bpd6-shard-0&authSource=admin&retryWrites=true&w=majority",
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
 
-//Create schema 
-const Bookschema = new mongoose.Schema ({
-  title: String ,
-  description: String ,
-  status : String
-})
-const Book = mongoose.model('Book',Bookschema);
+//Create schema
+const Bookschema = new mongoose.Schema({
+  title: String,
+  description: String,
+  status: String,
+});
+const Book = mongoose.model("Book", Bookschema);
 
- // seedData 
+// seedData
 
- async function seedData(){
-  const Book1 = new Book ({
-      title : "The Secret ",
-      description : " The Secret is a self-help book by Rhonda Byrne that explains how the law of attraction, which states that positive energy attracts positive things into your life, governs your thinking and actions, and how you can use the power of positive thinking to achieve anything you can imagine." ,
-      status : "Not Available"
-  })
+async function seedData() {
+  const Book1 = new Book({
+    title: "The Secret ",
+    description:
+      " The Secret is a self-help book by Rhonda Byrne that explains how the law of attraction, which states that positive energy attracts positive things into your life, governs your thinking and actions, and how you can use the power of positive thinking to achieve anything you can imagine.",
+    status: "Not Available",
+  });
 
-  const Book2 = new Book ({
-      title : "LOLITA ",
-      description : "a story structured as an autobiography written by Humbert Humbert during his time at the sanatorium and then in prison." ,
-      status : "Available"
-  })
+  const Book2 = new Book({
+    title: "LOLITA ",
+    description:
+      "a story structured as an autobiography written by Humbert Humbert during his time at the sanatorium and then in prison.",
+    status: "Available",
+  });
 
-  const Book3 = new Book ({
-      title : "Rich Dad Poor Dad ",
-      description : "tells the story of a boy with two fathers, one rich, one poor, to help you develop the mindset and financial " ,
-      status : "Not Available"
-  })
+  const Book3 = new Book({
+    title: "Rich Dad Poor Dad ",
+    description:
+      "tells the story of a boy with two fathers, one rich, one poor, to help you develop the mindset and financial ",
+    status: "Not Available",
+  });
   Book1.save();
   Book2.save();
   Book3.save();
 }
 
-
 //Just Once
 // seedData();
 
-app.get('/', homeRouteHandler)
+app.get("/", homeRouteHandler);
 
-function homeRouteHandler(req,res){
-  res.send('Welcome to the home route') 
+function homeRouteHandler(req, res) {
+  res.send("Welcome to the home route");
 }
 
-app.get('/books', booksRouteHandler)
+app.get("/books", booksRouteHandler);
 
-function booksRouteHandler(req,res){
-  Book.find({},(err,result)=>{
-    if(err){
-      console.log(err)
+function booksRouteHandler(req, res) {
+  Book.find({}, (err, result) => {
+    if (err) {
+      console.log(err);
     } else {
-      res.status(200).send(result)
+      res.status(200).send(result);
     }
-  })
-
+  });
 }
 
-app.get('/test', (request, response) => {
+//http://localhost:3010/addBooks
+// server.post("/addBooks", addBooksHandler);
+// function addBooksHandler(req, res) {
+//   Book.create({
+//     title: req.body.title,
+//     description: req.body.description,
+//     status: req.body.status,
 
-  response.send('test request received')
+//   })
+// }
 
-})
-
-
+app.get("/test", (request, response) => {
+  response.send("test request received");
+});
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
