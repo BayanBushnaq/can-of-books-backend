@@ -31,25 +31,25 @@ async function seedData() {
     title: "The Secret ",
     description:
       " The Secret is a self-help book by Rhonda Byrne that explains how the law of attraction, which states that positive energy attracts positive things into your life, governs your thinking and actions, and how you can use the power of positive thinking to achieve anything you can imagine.",
-    status: "Not Available",
+    status: "Life Changing ",
   });
 
   const Book2 = new Book({
     title: "LOLITA ",
     description:
       "a story structured as an autobiography written by Humbert Humbert during his time at the sanatorium and then in prison.",
-    status: "Available",
+    status: "Favorite Five",
   });
 
   const Book3 = new Book({
     title: "Rich Dad Poor Dad ",
     description:
       "tells the story of a boy with two fathers, one rich, one poor, to help you develop the mindset and financial ",
-    status: "Not Available",
+    status: "Recommended To Me",
   });
-  Book1.save();
-  Book2.save();
-  Book3.save();
+  await Book1.save();
+  await Book2.save();
+  await Book3.save();
 }
 
 //Just Once
@@ -73,16 +73,23 @@ function booksRouteHandler(req, res) {
   });
 }
 
-//http://localhost:3010/addBooks
-// server.post("/addBooks", addBooksHandler);
-// function addBooksHandler(req, res) {
-//   Book.create({
-//     title: req.body.title,
-//     description: req.body.description,
-//     status: req.body.status,
+http://localhost:3010/addBooks
+app.post("/addBooks", addBooksHandler);
+async function addBooksHandler(req, res) {
+  await Book.create({
+    title: req.body.title,
+    description: req.body.description,
+    status: req.body.status,
 
-//   })
-// }
+  });
+  Book.find({},(err,result)=>{
+    if(err){
+      console.log(err);
+    }else {
+      res.send(result);
+    }
+  })
+}
 
 app.get("/test", (request, response) => {
   response.send("test request received");
