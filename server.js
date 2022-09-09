@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 3010;
-
-mongoose.connect(`${process.env.mongodb}`,
+const mongo = process.env.mongodb;
+mongoose.connect("mongodb://BayanBushnaq:1234@ac-9ykgkyg-shard-00-00.9vebrc0.mongodb.net:27017,ac-9ykgkyg-shard-00-01.9vebrc0.mongodb.net:27017,ac-9ykgkyg-shard-00-02.9vebrc0.mongodb.net:27017/?ssl=true&replicaSet=atlas-14bpd6-shard-0&authSource=admin&retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 console.log(process.env.mongodb);
