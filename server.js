@@ -73,7 +73,7 @@ function booksRouteHandler(req, res) {
   });
 }
 
-http://localhost:3010/addBooks
+// http://localhost:3010/addBooks
 app.post("/addBooks", addBooksHandler);
 async function addBooksHandler(req, res) {
   await Book.create({
@@ -114,6 +114,8 @@ function deleteCurrentBook(req,res){
   })
 }
 
+
+
 app.put('/updateBook/:id',uppdateHandler);
 function uppdateHandler(req,res){
   const id = req.params.id;
@@ -136,14 +138,6 @@ function uppdateHandler(req,res){
   })
   }
 
- 
-  
-  
-  
- 
-
-
-    
 
 
 app.get("/test", (request, response) => {
