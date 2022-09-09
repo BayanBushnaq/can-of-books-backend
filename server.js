@@ -11,8 +11,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3010;
 
-mongoose.connect(
-  "mongodb://BayanBushnaq:1234@ac-9ykgkyg-shard-00-00.9vebrc0.mongodb.net:27017,ac-9ykgkyg-shard-00-01.9vebrc0.mongodb.net:27017,ac-9ykgkyg-shard-00-02.9vebrc0.mongodb.net:27017/?ssl=true&replicaSet=atlas-14bpd6-shard-0&authSource=admin&retryWrites=true&w=majority",
+mongoose.connect(process.env.mongodb,
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
