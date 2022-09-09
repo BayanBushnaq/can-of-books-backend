@@ -14,8 +14,9 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "gitignore": "^0.7.0",
     "mongoose": "^6.6.0",
-    "gitignore": "^0.7.0"
+    "node": "^18.9.0"
   },
   "repository": {
     "type": "git",
