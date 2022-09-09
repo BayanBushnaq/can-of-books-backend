@@ -11,7 +11,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3010;
 
-mongoose.connect(process.env.mongodb,
+mongoose.connect(`${process.env.mongodb}`,
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
