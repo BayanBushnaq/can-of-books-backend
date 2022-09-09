@@ -91,6 +91,27 @@ async function addBooksHandler(req, res) {
   })
 }
 
+// http://localhost:3010/deleteBook/id
+app.delete('/deleteBook/:id',deleteCurrentBook);
+function deleteCurrentBook(req,res){
+  const Bookid = req.params.id;
+  Book.deleteOne({_id:Bookid},(err,result)=>{
+    Book.find({},(err,result)=>{
+      if(err){
+        console.log(err)
+      }
+      else {
+        
+        res.send(result)
+        // console.log(Bookid)
+        // console.log(result)
+       
+        
+      }
+    })
+  })
+}
+
 app.get("/test", (request, response) => {
   response.send("test request received");
 });
