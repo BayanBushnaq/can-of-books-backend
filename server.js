@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3010;
 mongoose.connect(`${process.env.mongodb}`,
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
-
+console.log(process.env.mongodb);
 //Create schema
 const Bookschema = new mongoose.Schema({
   title: String,
