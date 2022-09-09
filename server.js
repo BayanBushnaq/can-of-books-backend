@@ -114,6 +114,38 @@ function deleteCurrentBook(req,res){
   })
 }
 
+app.put('/updateBook/:id',uppdateHandler);
+function uppdateHandler(req,res){
+  const id = req.params.id;
+  console.log(id);
+  const {title,description,status}=req.body;
+  Book.findByIdAndUpdate(id,{title,description,status},(err,result)=>{
+    if(err){
+      console.log(err)
+    }
+    else{
+      Book.find({},(err,result)=>{
+        if(err){
+          console.log(err);
+        }else {
+          res.send(result);
+        }
+      })
+      
+    }
+  })
+  }
+
+ 
+  
+  
+  
+ 
+
+
+    
+
+
 app.get("/test", (request, response) => {
   response.send("test request received");
 });
