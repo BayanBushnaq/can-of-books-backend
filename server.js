@@ -17,39 +17,39 @@ mongoose.connect("mongodb://BayanBushnaq:1234@ac-9ykgkyg-shard-00-00.9vebrc0.mon
 );
 // console.log(process.env.mongodb);
 //Create schema
-const Bookschema = new mongoose.Schema({
+const bookschema = new mongoose.Schema({
   title: String,
   description: String,
   status: String
 });
-const Book = mongoose.model("Book", Bookschema);
+const book = mongoose.model("books", bookschema);
 
 // seedData
 
 async function seedData() {
-  const Book1 = new Book({
+  const book1 = new book({
     title: "The Secret ",
     description:
       " The Secret is a self-help book by Rhonda Byrne that explains how the law of attraction, which states that positive energy attracts positive things into your life, governs your thinking and actions, and how you can use the power of positive thinking to achieve anything you can imagine.",
     status: "Life Changing "
   });
 
-  const Book2 = new Book({
+  const book2 = new book({
     title: "LOLITA ",
     description:
       "a story structured as an autobiography written by Humbert Humbert during his time at the sanatorium and then in prison.",
     status: "Favorite Five"
   });
 
-  const Book3 = new Book({
+  const book3 = new book({
     title: "Rich Dad Poor Dad ",
     description:
       "tells the story of a boy with two fathers, one rich, one poor, to help you develop the mindset and financial ",
     status: "Recommended To Me"
   });
-  await Book1.save();
-  await Book2.save();
-  await Book3.save();
+  await book1.save();
+  await book2.save();
+  await book3.save();
 }
 
 //Just Once
@@ -64,7 +64,7 @@ function homeRouteHandler(req, res) {
 app.get("/books", booksRouteHandler);
 
 function booksRouteHandler(req, res) {
-  Book.find({}, (err, result) => {
+  book.find({}, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -73,16 +73,16 @@ function booksRouteHandler(req, res) {
   });
 }
 
-// http://localhost:3010/addBooks
-app.post("/addBooks", addBooksHandler);
-async function addBooksHandler(req, res) {
-  await Book.create({
+// http://localhost:3010/addbooks
+app.post("/addbooks", addbooksHandler);
+async function addbooksHandler(req, res) {
+  await book.create({
     title: req.body.title,
     description: req.body.description,
     status: req.body.status
 
   });
-  Book.find({},(err,result)=>{
+  book.find({},(err,result)=>{
     if(err){
       console.log(err);
     }else {
@@ -93,19 +93,19 @@ async function addBooksHandler(req, res) {
 
 
 
-// http://localhost:3010/deleteBook/id
-app.delete('/deleteBook/:id',deleteCurrentBook);
-function deleteCurrentBook(req,res){
-  const Bookid = req.params.id;
-  Book.deleteOne({_id:Bookid},(err,result)=>{
-    Book.find({},(err,result)=>{
+// http://localhost:3010/deletebook/id
+app.delete('/deletebook/:id',deleteCurrentbook);
+function deleteCurrentbook(req,res){
+  const bookid = req.params.id;
+  book.deleteOne({_id:bookid},(err,result)=>{
+    book.find({},(err,result)=>{
       if(err){
         console.log(err)
       }
       else {
         
         res.send(result)
-        // console.log(Bookid)
+        // console.log(bookid)
         // console.log(result)
        
         
@@ -116,17 +116,17 @@ function deleteCurrentBook(req,res){
 
 
 
-app.put('/updateBook/:id',uppdateHandler);
+app.put('/updatebook/:id',uppdateHandler);
 function uppdateHandler(req,res){
   const id = req.params.id;
   console.log(id);
   const {title,description,status}=req.body;
-  Book.findByIdAndUpdate(id,{title,description,status},(err,result)=>{
+  book.findByIdAndUpdate(id,{title,description,status},(err,result)=>{
     if(err){
       console.log(err)
     }
     else{
-      Book.find({},(err,result)=>{
+      book.find({},(err,result)=>{
         if(err){
           console.log(err);
         }else {
